@@ -1,0 +1,25 @@
+# Laravel
+server-side/vendor/
+server-side/.env
+server-side/.env.*
+!server-side/.env.example
+
+# React / Node
+client/node_modules/
+client/.env
+client/.env.*
+!client/.env.example
+
+# Build files
+client/dist/
+
+# Laravel
+server-side/storage/*.key
+server-side/storage/logs/
+server-side/bootstrap/cache/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
