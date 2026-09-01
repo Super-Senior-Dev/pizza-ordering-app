@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import api from '../../api/axios';
+import toast from 'react-hot-toast';
 
 const Pizzas = () => {
     const [pizzas,setPizzas]=useState([]);
@@ -26,9 +27,12 @@ const Pizzas = () => {
             setPizzas((prev)=>prev.filter((pizza)=>pizza.id !== deletingPizza.id))
             
             setDeletingPizza(null);
+
+            toast.success("Pizza deleted successfully!")
             
         }catch(error){
             console.log(error.response?.data||error.message);
+            toast.error("Failed to delete this pizza.")
         }
     }
     
@@ -68,16 +72,19 @@ const Pizzas = () => {
             })
 
             setIsAddOpen(false);
+            toast.success("Pizza created successfully!")
         }catch(error){
             console.log("Add pizza request:",error.response?.data)
+            toast.error("Failed to create a pizza.")
         }
     }
     const handleUpdatePizza=async (e)=>{
         e.preventDefault();
         try{
             const response= await api.patch(`/admin/pizzas/${editingPizza.id}`,form);
-            console.log("updated data:",response.data);
-            setPizzas((prev)=>prev.map((pizza)=>pizza.id ===editingPizza.id ? response.data:pizza))
+
+            const updatedPizza=response.data.pizza;
+            setPizzas((prev)=>prev.map((pizza)=>pizza.id ===updatedPizza.id ? updatedPizza : pizza))
             setIsAddOpen(false)
             setEditingPizza(null);
             setForm({
@@ -88,8 +95,11 @@ const Pizzas = () => {
                 desc:""
             });
 
+            toast.success("Pizza updated successfully!")
+
         }catch(error){
             console.log(error.response?.data||error)
+            toast.error("Failed to update this pizza.")
         }
     }
 
@@ -153,22 +163,7 @@ const Pizzas = () => {
       {/* Search */}
       <div className='mt-6 flex flex-col gap-3 sm:flex-row'>
         <div className='relative flex-1'>
-            <span className='pointer-events-none absolute inset-y-0 left-4 flex items-center text-gray-400'>
-                <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                    strokeWidth={1.8}
-                    stroke='currentColor'
-                    className='h-5 w-5'
-                >
-                    <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='m21 21-4.35-4.35m0 0A7.5 7.5 0 1 0 6.04 6.04a7.5 7.5 0 0 0 10.61 10.61Z'
-                    />
-                </svg>
-            </span>
+            {/* Search Icon */}
             <input type="text"
             value={search}
             onChange={(e)=>setSearch(e.target.value)}
@@ -178,15 +173,30 @@ const Pizzas = () => {
                 }
             }}
             placeholder='Search pizzas by name, ingredients, or description'
-            className='w-full rounded-xl border border-gray-200 bg-white py-3 pl-11 pr-4 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-red-500 focus:ring-1 focus:ring-red-500'
+            className='w-full rounded-xl border border-gray-200 bg-white py-3 pl-11 pr-4 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-red-500 focus:ring-1 focus:ring-red-500 capitalize'
             />
         </div>
-        <button type='button'
-        onClick={handleSearch}
-        className='rounded-xl bg-gray-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-red-600'
-        >
-            Search
-        </button>
+        <div className='flex gap-3'>
+
+            <button type='button'
+            onClick={handleSearch}
+            className='flex-1 rounded-xl bg-gray-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-red-600 sm:flex-none'
+            >
+                Search
+            </button>
+            {search &&(
+                <button type='button'
+                onClick={()=>{
+                    setSearch('');
+                    fetchPizzas('/admin/pizzas');
+                }}
+                className='flex-1 rounded-xl border border-gray-200 bg-white px-6 py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-50 sm:flex-none '
+                >
+                    Clear
+                </button>
+
+            )}
+        </div>
       </div>
 
       {/* Pizza list */}

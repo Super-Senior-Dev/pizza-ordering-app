@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import api from '../../api/axios';
+import toast from 'react-hot-toast';
 
 const AdminOrderDetails = () => {
     const {id}=useParams();
@@ -16,13 +17,11 @@ const AdminOrderDetails = () => {
             const response=await api.patch(`/admin/orders/${id}`,{
                 status: newStatus
             })
-            console.log("updated order:",response.data);
             setOrder(response.data.order);
+            toast.success(response.data.message || "Order status updated successfully!")
         }catch(error){
-            console.log(
-                "status update error:",
-                error.response?.data || error.message
-            )
+            
+            toast.error(error.response?.data || "Failed to updated order status.")
         }finally{
             setUpdatingStatus(false);
         }

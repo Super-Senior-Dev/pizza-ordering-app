@@ -23,44 +23,53 @@ import AdminLayout from './components/layout/AdminLayout'
 import Pizzas from './pages/admin/Pizzas'
 import AdminOrders from './pages/admin/AdminOrders'
 import AdminOrderDetails from './pages/admin/AdminOrderDetails'
+import { Toaster } from 'react-hot-toast'
 
 function App() {
 
   return (
-    <CartProvider>
-      <Routes>
+    <>
+      <Toaster
+      position='top-right'
+      toastOptions={{
+        duration:3000
+      }}
+      />
+      <CartProvider>
+        <Routes>
 
-        {/* Customer layout */}
-        <Route element={<MainLayout/>}>
-          <Route path='/' element={<Home/>}/>
-          <Route path='/menu' element={<Menu/>} />
-          <Route path='/cart' element={<Cart/>}/>
-          <Route path='/menu/:id' element={<PizzaDetails/>}/>
+          {/* Customer layout */}
+          <Route element={<MainLayout/>}>
+            <Route path='/' element={<Home/>}/>
+            <Route path='/menu' element={<Menu/>} />
+            <Route path='/cart' element={<Cart/>}/>
+            <Route path='/menu/:id' element={<PizzaDetails/>}/>
 
 
-          <Route element={<ProtectedRoute/>}>
-            <Route path='/orders' element={<Orders/>}/>
-            <Route path='/checkout' element={<Checkout/>}/>
-            <Route path='/orders/:id' element={<OrderDetails/>}/>
+            <Route element={<ProtectedRoute/>}>
+              <Route path='/orders' element={<Orders/>}/>
+              <Route path='/checkout' element={<Checkout/>}/>
+              <Route path='/orders/:id' element={<OrderDetails/>}/>
+            </Route>
+            <Route element={<GuestRoute/>}>
+              <Route path='/register' element={<Register/>}/>
+              <Route path='/login' element={<Login/>}/>
+            </Route>
+
           </Route>
-          <Route element={<GuestRoute/>}>
-            <Route path='/register' element={<Register/>}/>
-            <Route path='/login' element={<Login/>}/>
-          </Route>
 
-        </Route>
-
-        {/* Admin layout */}
-        <Route element={<AdminRoute/>}>
-          <Route element={<AdminLayout/>}>
-            <Route path='/admin' element={<AdminDashboard/>}/>
-            <Route path='/admin/pizzas' element={<Pizzas/>}/>
-            <Route path='/admin/orders' element={<AdminOrders/>}/>
-            <Route path='/admin/orders/:id' element={<AdminOrderDetails/>}/>
+          {/* Admin layout */}
+          <Route element={<AdminRoute/>}>
+            <Route element={<AdminLayout/>}>
+              <Route path='/admin' element={<AdminDashboard/>}/>
+              <Route path='/admin/pizzas' element={<Pizzas/>}/>
+              <Route path='/admin/orders' element={<AdminOrders/>}/>
+              <Route path='/admin/orders/:id' element={<AdminOrderDetails/>}/>
+            </Route>
           </Route>
-        </Route>
-      </Routes>
-    </CartProvider>
+        </Routes>
+      </CartProvider>
+    </>
   )
 }
 

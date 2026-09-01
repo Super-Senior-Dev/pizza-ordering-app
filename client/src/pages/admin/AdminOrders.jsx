@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import api from '../../api/axios';
 import { Link } from 'react-router-dom';
 import StatusBadges from './StatusBadges';
+import toast from 'react-hot-toast';
 
 const AdminOrders = () => {
     const [orders,setOrders]=useState([]);
@@ -132,7 +133,7 @@ const AdminOrders = () => {
                 <button key={status}
                 type='button'
                 onClick={()=>handleStatusFilter(status)}
-                className={`shrink-0 rounded-xl px-4 py-2.5 text-sm font-semibold capitalize transition ${statusFilter ===status ? 'bg-gray-900 text-white': 'border border-gray-200 bg-white text-gray-600 hover:bg-gray-50'} `}
+                className={`shrink-0 rounded-xl px-4 py-2.5 text-sm font-semibold capitalize transition ${statusFilter === status ? 'bg-gray-900 text-white': 'border border-gray-200 bg-white text-gray-600 hover:bg-gray-50'} `}
                 >
                     {status}
                 </button>
