@@ -5,7 +5,7 @@ const PizzaCard = ({pizza}) => {
   return (
     <article className="overflow-hidden rounded-2xl bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md">
         <img
-            src="https://images.unsplash.com/photo-1579751626657-72bc17010498"
+            src={`http://127.0.0.1:8000${pizza.image}`}
             
             alt={pizza.name}
             className="h-56 w-full object-cover"

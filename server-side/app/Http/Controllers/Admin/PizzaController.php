@@ -39,8 +39,13 @@ class PizzaController extends Controller
      */
     public function store(StorePizzaRequest $request)
     {
+        $data= $request->validated();
 
-        $pizza=Pizza::create($request->validated());
+        if($request->hasFile('image')){
+            $data['image']=$request->file('image')->store('pizzas','public');
+        }
+
+        $pizza=Pizza::create($data);
 
         return response()->json([
             'message'=>"Pizza successfully created.",

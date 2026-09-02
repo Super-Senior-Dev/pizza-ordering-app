@@ -27,7 +27,7 @@ class StorePizzaRequest extends FormRequest
             'ingredients'=>'required|string',
             'desc'=>'required|string',
             'price'=>'required|numeric|min:1',
-            'image'=>'required|string|max:255'
+            'image'=>['nullable','image','mimes:jpg,jpeg,png,webp','max:2048']
         ];
     }
 }

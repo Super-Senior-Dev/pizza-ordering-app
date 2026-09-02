@@ -27,7 +27,7 @@ class UpdatePizzaRequest extends FormRequest
             'ingredients'=>'required|string',
             'desc'=>'required|string',
             'price'=>'required|numeric|min:1',
-            'image'=>'required|string'
+            'image'=>['nullable','image','mimes:png,jpg,jpeg,webp','max:2048']
         ];
     }
 }

@@ -61,8 +61,20 @@ const Pizzas = () => {
     const handleAddPizza=async (e)=>{
         e.preventDefault();
         try{
-            const response=await api.post('/admin/pizzas',form);
-            setPizzas((prev)=> [...prev,response.data]);
+            const data= new FormData();
+            data.append('name',form.name);
+            data.append('ingredients',form.ingredients);
+            data.append('desc',form.desc);
+            data.append('price',form.price);
+
+            if(form.image){
+                data.append('image',form.image);
+            }
+
+            const response=await api.post('/admin/pizzas',data);
+            console.log("Craeted pizza:",response.data);
+
+            setPizzas((prev)=> [...prev,response.data.pizza]);
             setForm({
                 name:"",
                 ingredients:"",
@@ -211,7 +223,7 @@ const Pizzas = () => {
                             <div className='flex h-48 items-center justify-center bg-gray-100'>
                                 {
                                     pizza.image ? (
-                                        <img src="https://images.unsplash.com/photo-1579751626657-72bc17010498" alt="Image" 
+                                        <img src={`http://127.0.0.1:8000${pizza.image}`} alt={pizza.name}
                                         className='h-full w-full object-cover'
                                         />
                                     ):(
@@ -367,14 +379,13 @@ const Pizzas = () => {
                         </div>
                         <div>
                             <label className='block text-sm font-semibold text-gray-700'>
-                                Image url
+                                Pizza Image
                             </label>
-                            <input type="text"
+                            <input type="file"
                             name='image'
-                            value={form.image}
-                            onChange={handleChange}
+                            accept='image/png,image/jpeg,image/jpg,image/webp'
+                            onChange={(e)=>setForm((prev)=>({...prev,image: e.target.files[0]}))}
                             required
-                            placeholder='http://...'
                             className='mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 outline-none focus:border-red-500'
                             />
                         </div>
