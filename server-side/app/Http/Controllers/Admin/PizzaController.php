@@ -8,6 +8,7 @@ use App\Http\Requests\UpdatePizzaRequest;
 use App\Http\Resources\PizzaResourse;
 use App\Models\Pizza;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PizzaController extends Controller
 {
@@ -66,8 +67,26 @@ class PizzaController extends Controller
      */
     public function update(UpdatePizzaRequest $request, Pizza $pizza)
     {
-        $pizza->update($request->validated());
+        $data= $request->validated();
 
+
+        
+        if($request->hasFile('image')){
+            //delete old image
+            if($pizza->image){
+                Storage::disk('public')->delete($pizza->image);
+            }
+            
+            //store new image
+            $data['image']=$request->file('image')->store('pizzas','public');
+        } else {
+            //prevent nullable image
+            unset($data['image']);
+        }
+
+
+        $pizza->update($data);
+        
         return response()->json([
             'message'=>'Pizza updated successfully.',
             'pizza'=>new PizzaResourse($pizza)

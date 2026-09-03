@@ -93,10 +93,23 @@ const Pizzas = () => {
     const handleUpdatePizza=async (e)=>{
         e.preventDefault();
         try{
-            const response= await api.patch(`/admin/pizzas/${editingPizza.id}`,form);
+            const data=new FormData();
 
-            const updatedPizza=response.data.pizza;
-            setPizzas((prev)=>prev.map((pizza)=>pizza.id ===updatedPizza.id ? updatedPizza : pizza))
+            data.append('name',form.name);
+            data.append('ingredients',form.ingredients);
+            data.append('desc',form.desc);
+            data.append('price',form.price);
+
+            if(form.image instanceof File){
+                data.append('image',form.image);
+            }
+
+            data.append('_method', 'PATCH');
+            const response= await api.post(`/admin/pizzas/${editingPizza.id}`,data);
+
+            console.log("updated pizza:",response.data);
+
+            setPizzas((prev)=>prev.map((pizza)=>pizza.id === editingPizza.id ? response.data.pizza : pizza))
             setIsAddOpen(false)
             setEditingPizza(null);
             setForm({
@@ -472,11 +485,12 @@ const Pizzas = () => {
                             <label className='block font-semibold text-sm text-gray-700'>
                                 Image url
                             </label>
-                            <input type="text"
+                            <input type="file"
                             name='image'
-                            value={form.image}
-                            required
-                            onChange={handleChange}
+                            accept='image/png,image/jpeg,image/jpg,image/webp'
+                            onChange={(e)=>setForm((prev)=>({
+                                ...prev,image: e.target.files[0]
+                            }))}
                             className='mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 outline-none focus:border-red-500'
                             />
                         </div>
