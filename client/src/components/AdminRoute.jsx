@@ -5,6 +5,8 @@ import { useAuth } from '../context/AuthContext'
 const AdminRoute = () => {
     const {token,user}=useAuth();
 
+    console.log("adminroute", {token,user})
+
     if(!token){
         return <Navigate to="/login" replace/>
     }
