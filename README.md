@@ -5,7 +5,12 @@ A full-stack pizza ordering application built with **React** and **Laravel**.
 Customers can browse pizzas, manage their cart, place orders, and track their orders. Administrators can manage pizzas, upload pizza images, manage customer orders, and monitor the restaurant through a dedicated admin dashboard.
 
 ---
+## 🌐 Live Demo
 
+[View the Live Application](https://pizza-ordering-fronend.netlify.app/)
+
+The application includes customer authentication, pizza ordering, order management, and an admin dashboard.
+---
 ## ✨ Features
 
 ### 👤 Customer Features
