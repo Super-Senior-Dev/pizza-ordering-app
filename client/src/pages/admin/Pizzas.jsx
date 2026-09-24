@@ -236,7 +236,7 @@ const Pizzas = () => {
                             <div className='flex h-48 items-center justify-center bg-gray-100'>
                                 {
                                     pizza.image ? (
-                                        <img src={`http://127.0.0.1:8000${pizza.image}`} alt={pizza.name}
+                                        <img src={`${import.meta.env.VITE_API_URL}${pizza.image}`} alt={pizza.name}
                                         className='h-full w-full object-cover'
                                         />
                                     ):(

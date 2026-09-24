@@ -5,7 +5,7 @@ const PizzaCard = ({pizza}) => {
   return (
     <article className="overflow-hidden rounded-2xl bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md">
         <img
-            src={`http://127.0.0.1:8000${pizza.image}`}
+            src={`${import.meta.env.VITE_API_URL}${pizza.image}`}
             
             alt={pizza.name}
             className="h-56 w-full object-cover"

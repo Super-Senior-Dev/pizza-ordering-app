@@ -47,7 +47,7 @@ const PizzaDetails = () => {
       <div className="grid gap-12 lg:grid-cols-2">
         {/* Pizza image */}
         <div>
-          <img src={`http://127.0.0.1:8000${pizza.image}`} alt={pizza.name} className='h-[420px] w-full rounded-3xl object-cover shadow-sm' />
+          <img src={`${import.meta.env.VITE_API_URL}${pizza.image}`} alt={pizza.name} className='h-[420px] w-full rounded-3xl object-cover shadow-sm' />
         </div>
         {/* Pizza information */}
         <div>
