@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import PizzaCard from '../components/layout/pizza/PizzaCard';
-import axios from 'axios';
+import api from '../api/axios';
 
 
 
@@ -11,7 +11,7 @@ const Menu = () => {
   const [error,setError]=useState("");
 
   useEffect(()=>{
-    axios.get('http://127.0.0.1:8000/api/pizzas').then((response)=>{
+    api.get('/pizzas').then((response)=>{
       setPizzas(response.data.data)
     }).catch(()=>{
       setError("Unable to load pizzas. Please try again.");

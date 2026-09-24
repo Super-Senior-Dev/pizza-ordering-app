@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useCart } from '../context/CartContext';
+import api from '../api/axios';
 
 const PizzaDetails = () => {
 
@@ -15,7 +16,7 @@ const PizzaDetails = () => {
 
 
   useEffect(()=>{
-    axios.get(`http://127.0.0.1:8000/api/pizzas/${id}`)
+    api.get(`/pizzas/${id}`)
     .then((response)=>{
       setPizza(response.data.data);
     }).catch(()=>{
