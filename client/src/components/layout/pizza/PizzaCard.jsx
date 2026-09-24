@@ -18,7 +18,7 @@ const PizzaCard = ({pizza}) => {
                 </h3>
 
                 <span className="font-bold text-red-600">
-                    ${Number(pizza.price.toFixed(2))}
+                    ${Number(pizza.price).toFixed(2)}
                 </span>
             </div>
 

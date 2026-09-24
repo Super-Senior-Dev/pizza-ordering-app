@@ -24,7 +24,7 @@ const Cart = () => {
                   {item.name}
                 </h2>
                 <p className='mt-1 text-sm text-gray-500'>
-                  ${Number(item.price.toFixed(2))}
+                  ${Number(item.price).toFixed(2)}
                 </p>
                 <div className='mt-3 flex items-center justify-center'>
                   <div className='flex items-center rounded-full border border-gray-200'>

@@ -114,7 +114,7 @@ const Checkout = () => {
                                     {item.name}
                                 </p>
                                 <p className='text-sm text-gray-500'>
-                                    {item.quantity} x ${Number(item.price.toFixed(2))}
+                                    {item.quantity} x ${Number(item.price).toFixed(2)}
                                 </p>
                             </div>
                             <p className='font-semibold'>

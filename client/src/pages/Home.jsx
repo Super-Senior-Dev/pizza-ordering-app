@@ -100,7 +100,7 @@ const Home = () => {
 
                             </h3>
                             <span className="font-bold text-red-600">
-                                ${Number(pizza.price.toFixed(2))}
+                                ${Number(pizza.price).toFixed(2)}
                             </span>
                         </div>
                             <p className="mt-2 text-sm leading-6 text-gray-600">
