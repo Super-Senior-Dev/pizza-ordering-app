@@ -18,6 +18,8 @@ RUN mkdir -p bootstrap/cache storage/framework/cache storage/framework/sessions 
 
 RUN composer install --no-dev --optimize-autoloader
 
+RUN php artisan storage:link
+
 RUN php artisan config:clear
 
 EXPOSE 10000
