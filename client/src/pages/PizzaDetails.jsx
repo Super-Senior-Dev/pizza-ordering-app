@@ -69,7 +69,7 @@ const PizzaDetails = () => {
             </p>
           </div>
           <p className='mt-8 text-2xl font-bold text-red-600'>
-            ${pizza.price.toFixed(2)}
+            ${Number(pizza.price.toFixed(2))}
           </p>
 
           {/* quantity */}
